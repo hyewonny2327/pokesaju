@@ -4,9 +4,10 @@ interface SelectProps {
   label?: string;
   options: SelectOption[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked: string;
 }
 
-function Select({ label, options, onChange }: SelectProps) {
+function Select({ label, options, onChange, checked }: SelectProps) {
   return (
     <div className="flex flex-row gap-4">
       {label && <label>{label}</label>}
@@ -18,7 +19,7 @@ function Select({ label, options, onChange }: SelectProps) {
             id={option.id}
             name={option.name}
             value={option.value}
-            checked={option.checked}
+            checked={option.id === checked}
             onChange={(e) => onChange(e)}
           />
           <label htmlFor={option.id}>{option.label}</label>
