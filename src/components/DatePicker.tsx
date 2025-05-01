@@ -1,6 +1,6 @@
 "use client";
 
-import { formatCurrentDateTime } from "@utils/formatCurrentDateTime";
+import { formatCurrentDateTime } from "@utils/datetime";
 interface DatePickerProps {
   value: string;
   label: string;
