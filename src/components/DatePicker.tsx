@@ -20,7 +20,6 @@ function DatePicker({ value, label, onChange }: DatePickerProps) {
         min="1930-01-01T00:00"
         max={formatCurrentDateTime()}
       />
-      ;
     </div>
   );
 }
