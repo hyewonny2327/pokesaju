@@ -36,6 +36,7 @@ export function generateGanzhiList() {
   for (let i = 0; i < 60; i++) {
     sixtyGanzhi.push(`${heavenlyStems[i % 10]}${earthlyBranches[i % 12]}`);
   }
+
   return sixtyGanzhi;
 }
 
@@ -46,5 +47,5 @@ export function getIljuByBirth(birth: string) {
   console.log(ganzi);
   //1899-12-31일은 계해 일주 (59번째 index);
   const index = (diff + 47) % 60;
-  console.log(ganzi[index]);
+  return ganzi[index];
 }
