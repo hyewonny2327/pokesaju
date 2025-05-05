@@ -3,7 +3,7 @@ import DatePicker from "@components/DatePicker";
 import Input from "@components/Input";
 import Select from "@components/Select";
 import { birthOptions, genderOptions } from "@constants/selectedOptions";
-import { formatCurrentDateTime, parseDateTimeString } from "@utils/datetime";
+import { formatCurrentDateTime, parseDateTimeString } from "@utils/dateUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 // ! 저장버튼 클릭했을 때 Local storage 저장
