@@ -1,6 +1,7 @@
 "use client";
 
-import { formatCurrentDateTime } from "@utils/datetime";
+import { SAJU_MIN_DATE } from "@constants/date";
+import { formatCurrentDateTime } from "@utils/dateUtils";
 interface DatePickerProps {
   value: string;
   label: string;
@@ -17,7 +18,7 @@ function DatePicker({ value, label, onChange }: DatePickerProps) {
         name="birth"
         value={value}
         onChange={(e) => onChange(e)}
-        min="1930-01-01T00:00"
+        min={`${SAJU_MIN_DATE}T00:00`}
         max={formatCurrentDateTime()}
       />
     </div>

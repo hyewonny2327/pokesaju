@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 export function formatCurrentDateTime() {
   const date = new Date();
   const [month, day, year, hours, minutes] = [
@@ -22,4 +25,12 @@ export function parseDateTimeString(dateTime: string) {
     hours,
     minutes,
   };
+}
+
+export function getDateDiffInDays(base: string, target: string) {
+  const dayDiff = dayjs.utc(target).diff(dayjs.utc(base), "day");
+  console.log(target, base);
+  console.log(dayDiff);
+
+  return dayDiff;
 }
