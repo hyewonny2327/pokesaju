@@ -1,3 +1,5 @@
+import { BirthId, GenderId, SelectOption } from "@custom-types/SelectOption";
+
 export const genderOptions: SelectOption<GenderId>[] = [
   {
     id: "male",

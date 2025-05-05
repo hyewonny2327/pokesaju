@@ -1,4 +1,4 @@
-import type { SelectOption } from "@custom-types/SelectOption.ts";
+import { SelectOption } from "@custom-types/SelectOption";
 
 interface SelectProps {
   label?: string;

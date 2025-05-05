@@ -1,7 +1,7 @@
-type GenderId = "male" | "female";
-type BirthId = "solar" | "lunar" | "lunar-leap";
+export type GenderId = "male" | "female";
+export type BirthId = "solar" | "lunar" | "lunar-leap";
 
-interface SelectOption<ID extends string = string> {
+export interface SelectOption<ID extends string = string> {
   id: ID;
   name: string;
   value: string;
