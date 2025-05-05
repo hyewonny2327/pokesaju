@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import earthBranchesData from "../../../constants/saju/earthBranches.json";
-import heavenlyStemsData from "../../../constants/saju/heavenlyStems.json";
+import earthBranchesData from "../../../../constants/saju/earthBranches.json";
+import heavenlyStemsData from "../../../../constants/saju/heavenlyStems.json";
 type EarthBranchKey = keyof typeof earthBranchesData;
 type heavenlyStemsKey = keyof typeof heavenlyStemsData;
 //req(query) : 60갑자
