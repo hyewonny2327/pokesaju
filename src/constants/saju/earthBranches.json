@@ -1,0 +1,14 @@
+{
+  "자": { "subType": "Psychic", "subTrait": "민감한 감성, 내면 중심" },
+  "축": { "subType": "Rock", "subTrait": "느리지만 묵직한 힘" },
+  "인": { "subType": "Fighting", "subTrait": "추진력, 창의적" },
+  "묘": { "subType": "Fairy", "subTrait": "빠른 순발력, 감수성" },
+  "진": { "subType": "Dragon", "subTrait": "리더십, 뚝심" },
+  "사": { "subType": "Electric", "subTrait": "외향적, 눈에 띔" },
+  "오": { "subType": "Dark", "subTrait": "자기 표현 강함, 열정" },
+  "미": { "subType": "Normal", "subTrait": "부드럽고 배려심 많음" },
+  "신": { "subType": "Electric", "subTrait": "명확함, 결단력" },
+  "유": { "subType": "Fairy", "subTrait": "단정, 고급스러움" },
+  "술": { "subType": "Rock", "subTrait": "책임감, 현실형" },
+  "해": { "subType": "Ghost", "subTrait": "직관적, 포용력" }
+}
