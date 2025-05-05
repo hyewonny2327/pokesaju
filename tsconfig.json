@@ -29,7 +29,7 @@
       "@lib/*": ["src/lib/*"],
       "@services/*": ["src/services/*"],
       "@constants/*": ["src/constants/*"],
-      "@types/*": ["src/types/*"],
+      "@custom-types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
