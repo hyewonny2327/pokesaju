@@ -3,6 +3,7 @@ import DatePicker from "@components/DatePicker";
 import Input from "@components/Input";
 import Select from "@components/Select";
 import { birthOptions, genderOptions } from "@constants/selectedOptions";
+import { BirthId, GenderId } from "@custom-types/SelectOption";
 import { formatCurrentDateTime, parseDateTimeString } from "@utils/dateUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
