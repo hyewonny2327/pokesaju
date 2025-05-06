@@ -3,25 +3,13 @@ import DatePicker from "@components/DatePicker";
 import Input from "@components/Input";
 import Select from "@components/Select";
 import { birthOptions, genderOptions } from "@constants/selectedOptions";
+import { SajuProfile } from "@custom-types/sajuProfile";
 import { BirthId, GenderId } from "@custom-types/SelectOption";
 import { formatCurrentDateTime, parseDateTimeString } from "@utils/dateUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 // ! 저장버튼 클릭했을 때 Local storage 저장
 
-interface SajuProfile {
-  id?: string; // DB 연동 시 유용 (optional)
-  name: string;
-  gender: String; // 성별
-  birthday: {
-    year: string;
-    month: string;
-    day: string;
-    hour: string;
-    minute?: string;
-    calendarType: string;
-  };
-}
 function InputPage() {
   const [input, setInput] = useState("");
   const [birth, setBirth] = useState(formatCurrentDateTime());
