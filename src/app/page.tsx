@@ -1,13 +1,28 @@
 "use client";
-import { getIljuByBirth } from "@lib/sajuUtils";
+import { pokemonByIljuRequestBody } from "@app/api/pokemon/pokemon-by-ilju/route";
 import Image from "next/image";
 import { useEffect } from "react";
 
 export default function Home() {
   useEffect(() => {
-    const day = getIljuByBirth("2001-08-14");
-    console.log(day);
+    async function fetchData() {
+      const body: pokemonByIljuRequestBody = {
+        ilju: "기유",
+        randomPokemonNumber: 6,
+      };
+      const response = await fetch("api/pokemon/pokemon-by-ilju", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const pokemon = await response.json();
+      console.log(pokemon);
+    }
+    fetchData();
   }, []);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">

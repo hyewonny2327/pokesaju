@@ -1,0 +1,12 @@
+{
+  "갑": { "type": ["Grass"], "trait": "성장형, 자연 친화적" },
+  "을": { "type": ["Grass", "Bug"], "trait": "유연형, 빠른 성장형" },
+  "병": { "type": ["Fire", "Electric"], "trait": "열정형, 활발형" },
+  "정": { "type": ["Fire", "Fairy"], "trait": "따뜻한, 온화형" },
+  "무": { "type": ["Ground", "Rock"], "trait": "묵직형, 안정형" },
+  "기": { "type": ["Ground", "Fairy"], "trait": "부드러운, 현실형" },
+  "경": { "type": ["Steel", "Rock"], "trait": "단단함, 견고함" },
+  "신": { "type": ["Steel", "Ice"], "trait": "세밀한, 차가운" },
+  "임": { "type": ["Water", "Dragon"], "trait": "깊은 감성, 장기 성장형" },
+  "계": { "type": ["Water", "Ice"], "trait": "섬세함, 차분함" }
+}
