@@ -9,8 +9,10 @@ interface DatePickerProps {
 }
 function DatePicker({ value, label, onChange }: DatePickerProps) {
   return (
-    <div className="flex flex-col">
-      <label htmlFor="birth">{label}</label>
+    <div className="flex flex-col gap-2">
+      <label htmlFor="birth" className="text-sm font-medium text-gray-700">
+        {label}
+      </label>
       <input
         className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700"
         type="datetime-local"
