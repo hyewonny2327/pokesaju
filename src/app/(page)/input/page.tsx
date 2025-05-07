@@ -42,7 +42,7 @@ function InputPage() {
   function handleButtonClick() {
     const { year, month, day, hours, minutes } = parseDateTimeString(birth);
     const userInfo: SajuProfile = {
-      id: crypto.randomUUID(),
+      id: Math.random().toString(36).substring(2, 10),
       name: input,
       gender: selectedGenderId,
       birthday: {
