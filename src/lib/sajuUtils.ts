@@ -44,7 +44,6 @@ export function generateGanzhiList() {
 export function getIljuByBirth(birth: string) {
   const diff = getDateDiffInDays(SAJU_MIN_DATE, birth);
   const ganzi = generateGanzhiList();
-  console.log(ganzi);
   //1899-12-31일은 계해 일주 (59번째 index);
   const index = (diff + 47) % 60;
   return ganzi[index];
