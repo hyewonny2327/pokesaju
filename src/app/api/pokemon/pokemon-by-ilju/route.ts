@@ -1,6 +1,6 @@
+import { getIljuDetail } from "@lib/pokemon/getIljuDetail";
 import { getPokemonDetail } from "@lib/pokemon/getPokemonDetail";
 import { getPokemonsByType } from "@lib/pokemon/getPokemonsByType";
-import { getTypesByIlju } from "@lib/pokemon/getTypesByIlju";
 import { NextResponse } from "next/server";
 
 export interface pokemonByIljuRequestBody {
@@ -15,23 +15,20 @@ export async function POST(req: Request) {
   if (!ilju) {
     return NextResponse.json({ error: "일주 누락" }, { status: 400 });
   }
-  const pokemonTypes = getTypesByIlju(ilju);
-  let result = [];
-  //pokemonTypes가 제대로 들어왔을 경우, 랜덤으로 포켓몬 리스트 생성
-  if (Array.isArray(pokemonTypes)) {
+  const iljuDetail = getIljuDetail(ilju);
+  let pokemon = [];
+  if ("error" in iljuDetail) {
+    return NextResponse.json(
+      { error: iljuDetail.error },
+      { status: iljuDetail.status }
+    );
+  } else {
     let pokemonList = await getPokemonsByType(
-      pokemonTypes,
+      iljuDetail.types,
       randomPokemonNumber
     );
-    result = await getPokemonDetail(pokemonList);
-  } else {
-    return NextResponse.json(
-      { error: pokemonTypes.error },
-      { status: pokemonTypes.status }
-    );
+    pokemon = await getPokemonDetail(pokemonList);
   }
 
-  //포켓몬 리스트를 가지고 디테일 객체 생성
-
-  return NextResponse.json(result);
+  return NextResponse.json({ pokemon, iljuDetail });
 }
