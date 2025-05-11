@@ -4,7 +4,10 @@ import { PokemonDetail } from "@custom-types/pokemonDetail";
 import { SajuProfile } from "@custom-types/sajuProfile";
 import { IljuDetailType } from "@lib/pokemon/getIljuDetail";
 import { getIljuByBirth } from "@lib/sajuUtils";
-import { getRandomPokemonByIlju } from "@services/pokemonServices";
+import {
+  getRandomPokemonByIlju,
+  getTypeImage,
+} from "@services/pokemonServices";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -12,6 +15,7 @@ function ResultPage() {
   const [sajuInfo, setSajuInfo] = useState<SajuProfile | null>(null);
   const [pokemons, setPokemons] = useState<PokemonDetail[] | null>(null);
   const [iljuDetail, setIljuDetail] = useState<IljuDetailType | null>(null);
+  const [typeImages, setTypeImages] = useState<string[]>([]);
   const router = useRouter();
   const ilju = useMemo(() => {
     if (!sajuInfo) return "";
@@ -37,9 +41,12 @@ function ResultPage() {
     if (ilju) {
       //리액트 쿼리로 수정 필요
       const pokemonData = await getRandomPokemonByIlju(ilju);
+      const typeImages = await getTypeImage(pokemonData.iljuDetail.types);
+      console.log("typeImages", typeImages.typeImages);
       console.log(pokemonData.iljuDetail);
       setPokemons(pokemonData.pokemon);
       setIljuDetail(pokemonData.iljuDetail);
+      setTypeImages(typeImages.typeImages);
     }
   }
   useEffect(() => {
@@ -51,18 +58,14 @@ function ResultPage() {
         {sajuInfo?.name}님의 성향은!
       </div>
 
-      {iljuDetail?.types && (
-        <div className="mb-10 text-center text-sm font-medium text-blue-600 space-x-2">
-          {iljuDetail.types.map((type, idx) => (
-            <span
-              key={idx}
-              className="inline-block px-3 py-1 bg-blue-100 rounded-full"
-            >
-              {type}
-            </span>
-          ))}
-        </div>
-      )}
+      <div className="mb-10">
+        {typeImages.map((item, idx) => (
+          <span key={idx} className="inline-block px-3 py-1 rounded-full">
+            <img src={item} className="w-20 h-auto" />
+          </span>
+        ))}
+      </div>
+
       {iljuDetail?.trait && (
         <div className="mb-6 text-center text-gray-600 text-lg space-y-1">
           {iljuDetail.trait.map((item, idx) => (
@@ -74,7 +77,7 @@ function ResultPage() {
         {sajuInfo?.name}님의 포켓몬은!
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="flex flex-wrap gap-6 mb-12">
         {pokemons?.map((pokemon) => (
           <PokemonCard key={pokemon.url} pokemon={pokemon} />
         ))}
