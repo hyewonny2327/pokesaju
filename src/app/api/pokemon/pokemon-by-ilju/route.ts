@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       iljuDetail.types,
       randomPokemonNumber
     );
-    pokemon = await getPokemonDetail(pokemonList);
+    pokemon = await getPokemonDetail(pokemonList.pokemons);
   }
 
   return NextResponse.json({ pokemon, iljuDetail });
