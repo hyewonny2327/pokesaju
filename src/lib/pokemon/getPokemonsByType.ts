@@ -1,14 +1,30 @@
+type pokemonType = {
+  pokemon: {
+    name: string;
+    url: string;
+  };
+  slot: number;
+};
+
 export async function getPokemonsByType(
   pokemonTypes: string[],
   randomPokemonNumber: number
 ) {
-  const pokemons = await Promise.all(
+  const pokemonTypeData = await Promise.all(
     pokemonTypes.map(async (type) => {
       const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
       const data = await res.json();
-      return data.pokemon.map((p: any) => p.pokemon); // name, url
+      const pokemonList = data.pokemon.map((p: pokemonType) => p.pokemon);
+      return { pokemonList };
     })
   );
-  const results = pokemons.flat();
-  return results.sort(() => 0.5 - Math.random()).slice(0, randomPokemonNumber);
+  const allPokemons = pokemonTypeData.flatMap((d) => d.pokemonList);
+
+  const randomPokemons = allPokemons
+    .sort(() => 0.5 - Math.random())
+    .slice(0, randomPokemonNumber);
+
+  return {
+    pokemons: randomPokemons,
+  };
 }

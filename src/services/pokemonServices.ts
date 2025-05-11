@@ -9,8 +9,22 @@ export async function getRandomPokemonByIlju(ilju: string) {
       randomPokemonNumber: 6,
     }),
   });
-  const pokemonData: { pokemon: PokemonDetail[]; iljuDetail: IljuDetailType } =
-    await response.json();
+  const pokemonData: {
+    pokemon: PokemonDetail[];
+    iljuDetail: IljuDetailType;
+  } = await response.json();
 
+  console.log("출력:ㅣ", pokemonData);
   return pokemonData;
+}
+
+export async function getTypeImage(types: string[]) {
+  const response = await fetch("/api/pokemon/type-image", {
+    method: "POST",
+    body: JSON.stringify({
+      types: types,
+    }),
+  });
+  const typeImages = await response.json();
+  return typeImages;
 }
