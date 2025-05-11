@@ -1,7 +1,9 @@
 "use client";
 import DatePicker from "@components/DatePicker";
 import Input from "@components/Input";
+import TalkingBox from "@components/pokemon/TalkingBox";
 import Select from "@components/Select";
+import talkingText from "@constants/pokemon/talkingText.json";
 import { birthOptions, genderOptions } from "@constants/selectedOptions";
 import { SajuProfile } from "@custom-types/sajuProfile";
 import { BirthId, GenderId } from "@custom-types/SelectOption";
@@ -60,38 +62,40 @@ function InputPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md flex flex-col p-6 bg-white rounded-xl shadow-md space-y-6">
-        <Input
-          value={input}
-          placeholder="이름"
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        />
-        <DatePicker
-          value={birth}
-          label="태어난 날짜와 시간을 입력하세요"
-          onChange={handleDatePickerChange}
-        />
-        <Select
-          options={birthOptions}
-          onChange={handleSelectBirthOptions}
-          checked={selectedBirthId}
-        />
-        <Select
-          label="성별을 선택하세요"
-          options={genderOptions}
-          onChange={handleSelectGenderOptions}
-          checked={selectedGenderId}
-        />
-        <button
-          className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-          onClick={handleButtonClick}
-        >
-          다음으로
-        </button>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#E11B1D]">
+      <TalkingBox ment={talkingText.drO}>
+        <div className="w-full  flex flex-col p-12 bg-slate-100 border-2 border-black rounded-xl shadow-[4px_4px_0px_black] space-y-6">
+          <Input
+            value={input}
+            placeholder="이름"
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <DatePicker
+            value={birth}
+            label="태어난 날짜와 시간을 입력하세요"
+            onChange={handleDatePickerChange}
+          />
+          <Select
+            options={birthOptions}
+            onChange={handleSelectBirthOptions}
+            checked={selectedBirthId}
+          />
+          <Select
+            label="성별을 선택하세요"
+            options={genderOptions}
+            onChange={handleSelectGenderOptions}
+            checked={selectedGenderId}
+          />
+          <button
+            className="w-full py-2 px-4 bg-red-500 text-white font-bold text-sm border-2 border-black rounded-full shadow-[2px_2px_0px_black] hover:bg-red-600 transition-all duration-200"
+            onClick={handleButtonClick}
+          >
+            다음으로
+          </button>
+        </div>
+      </TalkingBox>
     </div>
   );
 }
