@@ -1,5 +1,7 @@
 "use client";
 import PokemonCard from "@components/pokemon/PokemonCard";
+import UserProfile from "@components/UserProfile";
+import { typeClassMap } from "@constants/pokemon/pokemonTypesColor";
 import { PokemonDetail } from "@custom-types/pokemonDetail";
 import { SajuProfile } from "@custom-types/sajuProfile";
 import { IljuDetailType } from "@lib/pokemon/getIljuDetail";
@@ -53,51 +55,59 @@ function ResultPage() {
     console.log(iljuDetail);
   }, [iljuDetail]);
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-10">
-      <div className="text-center text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6">
-        {sajuInfo?.name}님의 성향은!
-      </div>
+    <>
+      {iljuDetail && (
+        <div className="min-h-screen bg-gray-50 ">
+          <div
+            className={`${typeClassMap[iljuDetail.types[0].toLowerCase()]} w-full h-[50vh]`}
+          >
+            <header className="w-full flex justify-between items-center px-6 py-4 fixed top-0 left-0 z-50">
+              <div className="flex gap-2">
+                <button
+                  onClick={fetchPokemonData}
+                  className="px-4 py-2  backdrop-blur-md bg-white/30 rounded-full bg-gray-100 hover:bg-gray-200 text-sm"
+                >
+                  🔁 다시 뽑기
+                </button>
+                <button
+                  onClick={() => router.push("/input")}
+                  className="px-4 py-2 rounded-full  backdrop-blur-md bg-white/30 text-black hover:bg-gray-800 text-sm"
+                >
+                  🏠 홈으로
+                </button>
+              </div>
+            </header>
+            <img src={"/pokeball.svg"} className="ml-auto" />
+          </div>
+          <div className="absolute top-2/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <UserProfile name={sajuInfo?.name} />
+          </div>
+          <div className="bg-gray-50">
+            <div className="w-full flex gap-4 justify-center p-8 mt-16">
+              {typeImages.map((item, idx) => (
+                <span key={idx} className="inline-block px-3 py-1 rounded-full">
+                  <img src={item} className="w-20 h-auto" />
+                </span>
+              ))}
+            </div>
 
-      <div className="mb-10">
-        {typeImages.map((item, idx) => (
-          <span key={idx} className="inline-block px-3 py-1 rounded-full">
-            <img src={item} className="w-20 h-auto" />
-          </span>
-        ))}
-      </div>
+            {iljuDetail?.trait && (
+              <div className="mb-6 text-center text-gray-600 text-lg space-y-1">
+                {iljuDetail.trait.map((item, idx) => (
+                  <div key={idx}>{item}</div>
+                ))}
+              </div>
+            )}
 
-      {iljuDetail?.trait && (
-        <div className="mb-6 text-center text-gray-600 text-lg space-y-1">
-          {iljuDetail.trait.map((item, idx) => (
-            <div key={idx}>{item}</div>
-          ))}
+            <div className="w-full flex flex-wrap gap-8 mb-12 justify-center">
+              {pokemons?.map((pokemon) => (
+                <PokemonCard key={pokemon.url} pokemon={pokemon} />
+              ))}
+            </div>
+          </div>
         </div>
       )}
-      <div className="text-center text-xl sm:text-2xl font-bold text-gray-800 mb-6">
-        {sajuInfo?.name}님의 포켓몬은!
-      </div>
-
-      <div className="flex flex-wrap gap-6 mb-12">
-        {pokemons?.map((pokemon) => (
-          <PokemonCard key={pokemon.url} pokemon={pokemon} />
-        ))}
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-        <button
-          onClick={fetchPokemonData}
-          className="px-6 py-2 text-white bg-indigo-600 hover:bg-indigo-700 font-semibold rounded-full transition-all duration-200 shadow-md"
-        >
-          다시 뽑기 🎲
-        </button>
-        <button
-          onClick={() => router.push("/input")}
-          className="px-6 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 font-semibold rounded-full transition-all duration-200 shadow-sm"
-        >
-          돌아가기 ↩️
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
 export default ResultPage;
