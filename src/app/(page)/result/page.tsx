@@ -7,23 +7,31 @@ import { SajuProfile } from "@custom-types/sajuProfile";
 import usePokemonByIlju from "@hooks/usePokemonByIlju";
 import { getIljuByBirth } from "@lib/sajuUtils";
 import { useRouter } from "next/navigation";
+import { userInfo } from "os";
 import { useEffect, useMemo, useState } from "react";
 
 function ResultPage() {
-  // const [sajuInfo, setSajuInfo] = useState<SajuProfile | null>(null);
+  const [sajuInfo, setSajuInfo] = useState<SajuProfile | null>(null);
   const router = useRouter();
-  // const ilju = useMemo(() => {
-  //   if (!sajuInfo) return "";
-  //   const { year, month, day } = sajuInfo.birthday;
-  //   return getIljuByBirth(`${year}-${month}-${day}`);
-  // }, [sajuInfo]);
-  const ilju = "기유";
+  const ilju = useMemo(() => {
+    if (!sajuInfo) return "";
+    const { year, month, day } = sajuInfo.birthday;
+    return getIljuByBirth(`${year}-${month}-${day}`);
+  }, [sajuInfo]);
+  // const ilju = "기유";
   const { pokemons, iljuDetail, typeImages, refetchPokemonData } =
     usePokemonByIlju(ilju);
 
   useEffect(() => {
     console.log("hook이 실행되어 출력합니다.", pokemons);
   }, [pokemons]);
+  useEffect(() => {
+    const data = localStorage.getItem("userInfo");
+    if (data) {
+      const userInfo = JSON.parse(data);
+      setSajuInfo(userInfo);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-100 border-t-4 border-black shadow-[inset_0_4px_8px_rgba(0,0,0,0.2)]">
@@ -32,7 +40,7 @@ function ResultPage() {
         <header className="w-full flex justify-between items-center px-6 py-4 fixed top-0 left-0 z-50">
           <div className="flex gap-2">
             <button
-              onClick={async () => await refetchPokemonData}
+              onClick={async () => await refetchPokemonData()}
               className="px-4 py-2 bg-red-500 text-white text-sm font-bold rounded-full border-2 border-black shadow-[2px_2px_0px_black] hover:bg-red-600"
             >
               🔁 다시 뽑기
