@@ -9,7 +9,7 @@ interface PokemonCardProps {
 }
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const types = pokemon.types.map((type: any) => type.type.name);
-  const { data: typeImages } = useQuery({
+  const { data: typeImages } = useQuery<string[] | undefined>({
     queryKey: ["pokemonType", pokemon],
     queryFn: () => getTypeImage(types),
     enabled: !!types,
@@ -18,22 +18,20 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
     <div
       key={pokemon.url}
-      className="bg-[#E5E5E5] rounded-2xl p-4 flex flex-col items-center gap-2 min-w-[210px] w-fit h-fit"
+      className="w-[220px] bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_black] p-4 flex flex-col items-center gap-3 transition hover:scale-[1.02] hover:brightness-95"
     >
-      <div className="flex flex-row w-full justify-start align-center border-red">
-        <img
-          src={pokemon.sprites.front_default}
-          alt={pokemon.name}
-          className="w-24 h-24 object-contain"
-        />
-        <div className="text-sm font-semibold capitalize flex flex-col justify-center align-center">
-          {pokemon.name}
-        </div>
+      <img
+        src={pokemon.sprites.front_default}
+        alt={pokemon.name}
+        className="w-24 h-24 object-contain"
+      />
+      <div className="text-center font-bold text-base capitalize font-mono tracking-wide">
+        {pokemon.name}
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-center">
         {Array.isArray(typeImages) &&
-          typeImages?.map((type: any) => (
-            <img src={type} className="w-16 h-auto" />
+          typeImages.map((type, idx) => (
+            <img key={idx} src={type} className="w-10 h-auto" />
           ))}
       </div>
     </div>
