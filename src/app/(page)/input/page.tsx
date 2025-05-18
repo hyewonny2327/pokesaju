@@ -7,14 +7,15 @@ import talkingText from "@constants/pokemon/talkingText.json";
 import { birthOptions, genderOptions } from "@constants/selectedOptions";
 import { SajuProfile } from "@custom-types/sajuProfile";
 import { BirthId, GenderId } from "@custom-types/SelectOption";
+import { setUserInfo } from "@services/userServices";
 import { formatCurrentDateTime, parseDateTimeString } from "@utils/dateUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// ! 저장버튼 클릭했을 때 Local storage 저장
 
 function InputPage() {
   const [input, setInput] = useState("");
   const [birth, setBirth] = useState(formatCurrentDateTime());
+
   const [selectedGenderId, setSelectedGenderId] = useState<GenderId>(
     genderOptions[0].id
   );
@@ -41,7 +42,7 @@ function InputPage() {
     });
   }
 
-  function handleButtonClick() {
+  async function handleButtonClick() {
     const { year, month, day, hours, minutes } = parseDateTimeString(birth);
     const userInfo: SajuProfile = {
       id: Math.random().toString(36).substring(2, 10),
@@ -56,8 +57,9 @@ function InputPage() {
         calendarType: selectedBirthId,
       },
     };
-    //유저 인포를 로컬스토리지에 저장
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    //유저 인포를 쿠키에 저장하는 함수
+    await setUserInfo(userInfo);
+    // setUserInfo(userInfo);
     router.push("/result");
   }
 
