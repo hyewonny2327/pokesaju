@@ -1,22 +1,20 @@
 "use client";
 import { PokemonDetail } from "@custom-types/pokemonDetail";
 import { getTypeImage } from "@services/pokemonServices";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 interface PokemonCardProps {
   pokemon: PokemonDetail;
 }
 function PokemonCard({ pokemon }: PokemonCardProps) {
-  const [typeImages, setTypeImages] = useState<string[]>([]);
-  useEffect(() => {
-    async function getTypes() {
-      const types = pokemon.types.map((type: any) => type.type.name);
-      const typeImages = await getTypeImage(types);
-      console.log(typeImages);
-      setTypeImages(typeImages.typeImages);
-    }
-    getTypes();
-  }, []);
+  const types = pokemon.types.map((type: any) => type.type.name);
+  const { data: typeImages } = useQuery<string[] | undefined>({
+    queryKey: ["pokemonType", pokemon],
+    queryFn: () => getTypeImage(types),
+    enabled: !!types,
+  });
+
   return (
     <div
       key={pokemon.url}
@@ -31,9 +29,10 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
         {pokemon.name}
       </div>
       <div className="flex gap-2 justify-center">
-        {typeImages.map((type, idx) => (
-          <img key={idx} src={type} className="w-10 h-auto" />
-        ))}
+        {Array.isArray(typeImages) &&
+          typeImages.map((type, idx) => (
+            <img key={idx} src={type} className="w-10 h-auto" />
+          ))}
       </div>
     </div>
   );

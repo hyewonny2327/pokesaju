@@ -1,12 +1,12 @@
 import { PokemonDetail } from "@custom-types/pokemonDetail";
 import { IljuDetailType } from "@lib/pokemon/getIljuDetail";
 
-export async function getRandomPokemonByIlju(ilju: string) {
+export async function getRandomPokemonByIlju(ilju: string, number: number) {
   const response = await fetch("/api/pokemon/pokemon-by-ilju", {
     method: "POST",
     body: JSON.stringify({
       ilju: ilju,
-      randomPokemonNumber: 6,
+      randomPokemonNumber: number,
     }),
   });
   const pokemonData: {
@@ -14,17 +14,19 @@ export async function getRandomPokemonByIlju(ilju: string) {
     iljuDetail: IljuDetailType;
   } = await response.json();
 
-  console.log("출력:ㅣ", pokemonData);
   return pokemonData;
 }
 
-export async function getTypeImage(types: string[]) {
+export async function getTypeImage(
+  types: string[] | undefined
+): Promise<string[]> {
+  if (!types) throw new Error("types가 정의되지 않았습니다.");
   const response = await fetch("/api/pokemon/type-image", {
     method: "POST",
     body: JSON.stringify({
       types: types,
     }),
   });
-  const typeImages = await response.json();
+  const typeImages: string[] = await response.json();
   return typeImages;
 }

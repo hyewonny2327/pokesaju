@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.76.1",
     "dayjs": "^1.11.13",
     "next": "15.3.1",
     "react": "^19.0.0",
