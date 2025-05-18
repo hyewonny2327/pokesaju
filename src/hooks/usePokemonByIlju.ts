@@ -1,14 +1,10 @@
 "use client";
-import { PokemonDetail } from "@custom-types/pokemonDetail";
-import { SajuProfile } from "@custom-types/sajuProfile";
-import { IljuDetailType } from "@lib/pokemon/getIljuDetail";
-import { getIljuByBirth } from "@lib/sajuUtils";
+
 import {
   getRandomPokemonByIlju,
   getTypeImage,
 } from "@services/pokemonServices";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
 
 export default function usePokemonByIlju(ilju: string) {
   //사주정보를 바탕으로, 포켓몬에 매칭 정보 받아오는 쿼리
@@ -17,7 +13,7 @@ export default function usePokemonByIlju(ilju: string) {
     refetch: refetchPokemonData,
   } = useQuery({
     queryKey: ["ilju", ilju],
-    queryFn: () => getRandomPokemonByIlju(ilju),
+    queryFn: () => getRandomPokemonByIlju(ilju, 6),
     enabled: !!ilju,
   });
 
@@ -27,10 +23,6 @@ export default function usePokemonByIlju(ilju: string) {
     queryFn: () => getTypeImage(iljuDetail?.types),
     enabled: !!iljuDetail?.types,
   });
-
-  useEffect(() => {
-    console.log("hook 실행", ilju);
-  }, [ilju]);
 
   return {
     pokemons,
