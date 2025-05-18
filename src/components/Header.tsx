@@ -1,8 +1,3 @@
-"use client";
-import Button from "@components/Button";
-import usePokemonByIlju from "@hooks/usePokemonByIlju";
-import useUserStore from "@store/userStore";
-import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function Header({ children }: { children: ReactNode }) {
